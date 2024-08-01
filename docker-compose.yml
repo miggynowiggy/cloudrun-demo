@@ -1,0 +1,32 @@
+services:
+  web:
+    build: .
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8080 --reload
+    container_name: app-web
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/app
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://postgres:cloudrun_demo@db:5432/todo
+
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    container_name: app-database
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=cloudrun_demo
+      - POSTGRES_DB=todo
+    ports:
+      - "5432:5432"
+    volumes: 
+      - ./db:/var/lib/postgresql/data
+
+volumes:
+  db:
+    driver: local

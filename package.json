@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "dev": "uvicorn main:app --reload",
+    "start": "uvicorn main:app --port :$PORT --workers 4",
+    "deploy": "gcloud app deploy app.yaml",
+    "migrate": "alembic upgrade head",
+    "generate-migration": "alembic revision --autogenerate -m 'fix'"
+  }
+}
