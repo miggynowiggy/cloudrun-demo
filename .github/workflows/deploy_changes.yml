@@ -59,4 +59,5 @@ jobs:
           --platform "managed" \
           --service-account $SERVICE_ACCOUNT_EMAIL \
           --port 8080 \
+          --set-env-vars DATABASE_URL=${{ secrets.DATABASE_URL }} \
           --quiet
